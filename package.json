@@ -1,13 +1,44 @@
 {
-  "name": "geo-bearing",
+  "name": "@arijitgupta/geo-bearing",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Calculate geographic bearings between coordinates.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArijitGupta-in/geo-bearing.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "homepage": "https://github.com/ArijitGupta-in/geo-bearing",
+  "bugs": {
+    "url": "https://github.com/ArijitGupta-in/geo-bearing/issues"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "check": "tsc --noEmit",
+    "prepublishOnly": "npm run check && npm test && npm run build"
+  },
+  "keywords": [
+    "geo",
+    "geospatial",
+    "bearing",
+    "coordinates"
+  ],
+  "author": "Arijit Gupta",
+  "license": "MIT",
+  "devDependencies": {
+    "markdownlint-cli2": "^0.23.2",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  }
 }
