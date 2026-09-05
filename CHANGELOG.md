@@ -14,9 +14,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - DMS (Degrees, Minutes, Seconds) coordinate support:
   - `DMSCoordinate`, `LatitudeDMS`, `LongitudeDMS`, `LatitudeDirection`, and `LongitudeDirection` types.
   - `dmsToDecimal` - converts a `DMSCoordinate` to decimal degrees.
-  - `latitudeDMSToDecimal` / `longitudeDMSToDecimal` - convert individual DMS components.
   - `bearingBetween` now accepts `DMSCoordinate` for either or both arguments; mixed formats are supported.
-- Internal `validateCoordinate` function for validating decimal-degree coordinates. Throws `RangeError` if latitude is outside `[-90, 90]` or longitude is outside `[-180, 180]`.
+- `validateCoordinate` function for validating decimal-degree coordinates. Throws `RangeError` if latitude is outside `[-90, 90]` or longitude is outside `[-180, 180]`.
 
 ### Changed
 

@@ -74,9 +74,6 @@ const decimal = dmsToDecimal(dms);
 // { latitude: 22.5726, longitude: 88.3639 }
 ```
 
-The individual helpers `latitudeDMSToDecimal` and `longitudeDMSToDecimal` are also
-available for converting one coordinate component at a time.
-
 ## API
 
 ### `bearingBetween(from, to)`
@@ -99,17 +96,12 @@ Converts a `DMSCoordinate` to a decimal-degree coordinate object.
 
 **Throws:** `RangeError` if any DMS component is out of range.
 
-### `latitudeDMSToDecimal(latitude)`
+### `validateCoordinate(coordinate)`
 
-Converts a DMS latitude to a signed decimal-degree value. North is positive and south is negative.
+Validates a decimal-degree coordinate.
 
-**Throws:** `RangeError` if a latitude component is out of range.
-
-### `longitudeDMSToDecimal(longitude)`
-
-Converts a DMS longitude to a signed decimal-degree value. East is positive and west is negative.
-
-**Throws:** `RangeError` if a longitude component is out of range.
+**Throws:** `RangeError` if latitude is outside `[-90, 90]`, longitude is outside
+`[-180, 180]`, or either value is not finite.
 
 ### `Coordinate`
 

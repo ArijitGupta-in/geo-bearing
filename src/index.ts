@@ -14,8 +14,4 @@ export type {
 
 export { bearingBetween } from "./bearingBetween.js";
 
-export {
-    dmsToDecimal,
-    latitudeDMSToDecimal,
-    longitudeDMSToDecimal,
-} from "./coordinate.js";
+export { dmsToDecimal, validateCoordinate } from "./coordinate.js";
