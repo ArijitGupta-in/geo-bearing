@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bearingBetween } from "./bearingBetween.js";
+import { bearingBetween } from "./index.js";
 
 describe("bearingBetween", () => {
     describe("cardinal directions", () => {

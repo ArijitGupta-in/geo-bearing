@@ -1,5 +1,5 @@
 import type { Coordinate, DMSCoordinate } from "./types.js";
-import { dmsToDecimal } from "./dms.js";
+import { dmsToDecimal } from "./coordinate.js";
 
 function isDMSCoordinate(
     coord: Coordinate | DMSCoordinate

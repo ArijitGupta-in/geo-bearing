@@ -18,4 +18,4 @@ export {
     dmsToDecimal,
     latitudeDMSToDecimal,
     longitudeDMSToDecimal,
-} from "./dms.js";
+} from "./coordinate.js";
