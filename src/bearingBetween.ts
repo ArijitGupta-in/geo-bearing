@@ -1,5 +1,5 @@
 import type { Coordinate, DMSCoordinate } from "./types.js";
-import { dmsToDecimal } from "./coordinate.js";
+import { dmsToDecimal, validateCoordinate } from "./coordinate.js";
 
 function isDMSCoordinate(
     coord: Coordinate | DMSCoordinate
@@ -8,7 +8,12 @@ function isDMSCoordinate(
 }
 
 function normalize(coord: Coordinate | DMSCoordinate): Coordinate {
-    return isDMSCoordinate(coord) ? dmsToDecimal(coord) : coord;
+    if (isDMSCoordinate(coord)) {
+        return dmsToDecimal(coord);
+    }
+
+    validateCoordinate(coord);
+    return coord;
 }
 
 /**

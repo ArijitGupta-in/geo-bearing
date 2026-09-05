@@ -105,6 +105,33 @@ describe("bearingBetween", () => {
                 )
             ).toThrow(RangeError);
         });
+
+        it("throws when a decimal latitude is out of range", () => {
+            expect(() =>
+                bearingBetween(
+                    { latitude: 91, longitude: 0 },
+                    { latitude: 0, longitude: 0 }
+                )
+            ).toThrow(RangeError);
+        });
+
+        it("throws when a decimal longitude is out of range", () => {
+            expect(() =>
+                bearingBetween(
+                    { latitude: 0, longitude: 181 },
+                    { latitude: 0, longitude: 0 }
+                )
+            ).toThrow(RangeError);
+        });
+
+        it("throws when a decimal coordinate is not finite", () => {
+            expect(() =>
+                bearingBetween(
+                    { latitude: Number.NaN, longitude: 0 },
+                    { latitude: 0, longitude: 0 }
+                )
+            ).toThrow(RangeError);
+        });
     });
 });
 
