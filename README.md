@@ -88,7 +88,8 @@ Returns the initial bearing from one geographic coordinate to another in degrees
 **Returns:** `number` - initial bearing in degrees, measured clockwise from true north
 and normalized to `0 <= bearing < 360`.
 
-**Throws:** `RangeError` if the two coordinates are identical or a DMS component is out of range.
+**Throws:** `RangeError` if the two coordinates are identical, a decimal coordinate
+is invalid, or a DMS component is out of range.
 
 ### `dmsToDecimal(dms)`
 
