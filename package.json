@@ -1,7 +1,7 @@
 {
     "name": "@arijitgupta/geo-bearing",
     "version": "1.0.0",
-    "description": "Calculate initial bearing between coordinates.",
+    "description": "Calculate the initial bearing between geographic coordinates using decimal degrees or DMS notation.",
     "type": "module",
     "repository": {
         "type": "git",
@@ -32,7 +32,13 @@
         "geo",
         "geospatial",
         "bearing",
-        "coordinates"
+        "coordinates",
+        "navigation",
+        "azimuth",
+        "great-circle",
+        "latitude",
+        "longitude",
+        "dms"
     ],
     "author": "Arijit Gupta",
     "license": "MIT",
