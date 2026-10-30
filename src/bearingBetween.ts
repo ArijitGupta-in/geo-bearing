@@ -1,26 +1,11 @@
 import {
     DEGREES_PER_RADIAN,
     RADIANS_PER_DEGREE,
-    dmsToDecimal,
+    coordinatesEqual,
     normalizeAngle,
-    validateCoordinate,
+    normalizeCoordinate,
 } from "@arijitgupta/geo-core";
 import type { Coordinate, DMSCoordinate } from "./types.js";
-
-function isDMSCoordinate(
-    coord: Coordinate | DMSCoordinate
-): coord is DMSCoordinate {
-    return typeof coord.latitude === "object";
-}
-
-function normalize(coord: Coordinate | DMSCoordinate): Coordinate {
-    if (isDMSCoordinate(coord)) {
-        return dmsToDecimal(coord);
-    }
-
-    validateCoordinate(coord);
-    return coord;
-}
 
 /**
  * Calculates the initial bearing from one geographic coordinate to another.
@@ -38,7 +23,11 @@ function normalize(coord: Coordinate | DMSCoordinate): Coordinate {
  * @param to - The destination coordinate.
  * @returns The initial bearing from `from` to `to`, in degrees.
  *
- * @throws {RangeError} If the two coordinates are identical.
+ * @throws {RangeError} If a coordinate is out of range, or if the two
+ * coordinates are the same point. Longitude -180 and 180 are the same
+ * meridian, and two coordinates at the same pole are the same point whatever
+ * their longitudes.
+ * @throws {TypeError} If a coordinate is malformed or not finite.
  *
  * @example
  * ```ts
@@ -53,10 +42,10 @@ export function bearingBetween(
     from: Coordinate | DMSCoordinate,
     to: Coordinate | DMSCoordinate
 ): number {
-    const a = normalize(from);
-    const b = normalize(to);
+    const a = normalizeCoordinate(from);
+    const b = normalizeCoordinate(to);
 
-    if (a.latitude === b.latitude && a.longitude === b.longitude) {
+    if (coordinatesEqual(a, b)) {
         throw new RangeError("Bearing is undefined for identical coordinates.");
     }
 

@@ -106,6 +106,54 @@ describe("bearingBetween", () => {
             ).toThrow(RangeError);
         });
 
+        it("throws when longitude -180 and 180 name the same point", () => {
+            expect(() =>
+                bearingBetween(
+                    { latitude: 0, longitude: 180 },
+                    { latitude: 0, longitude: -180 }
+                )
+            ).toThrow("Bearing is undefined for identical coordinates.");
+            expect(() =>
+                bearingBetween(
+                    { latitude: 12, longitude: -180 },
+                    { latitude: 12, longitude: 180 }
+                )
+            ).toThrow(RangeError);
+        });
+
+        it("throws when both coordinates are the same pole", () => {
+            expect(() =>
+                bearingBetween(
+                    { latitude: 90, longitude: 10 },
+                    { latitude: 90, longitude: -120 }
+                )
+            ).toThrow(RangeError);
+            expect(() =>
+                bearingBetween(
+                    { latitude: -90, longitude: 0 },
+                    { latitude: -90, longitude: 180 }
+                )
+            ).toThrow(RangeError);
+        });
+
+        it("still returns a bearing between opposite poles", () => {
+            expect(
+                bearingBetween(
+                    { latitude: 90, longitude: 0 },
+                    { latitude: -90, longitude: 0 }
+                )
+            ).toBeGreaterThanOrEqual(0);
+        });
+
+        it("throws TypeError for null and non-object coordinates", () => {
+            expect(() =>
+                bearingBetween(null as never, { latitude: 0, longitude: 0 })
+            ).toThrow(TypeError);
+            expect(() =>
+                bearingBetween({ latitude: 0, longitude: 0 }, "x" as never)
+            ).toThrow(TypeError);
+        });
+
         it("throws when a decimal latitude is out of range", () => {
             expect(() =>
                 bearingBetween(
