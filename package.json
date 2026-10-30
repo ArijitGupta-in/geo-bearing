@@ -1,6 +1,6 @@
 {
     "name": "@arijitgupta/geo-bearing",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Calculate the initial bearing between geographic coordinates using decimal degrees or DMS notation.",
     "type": "module",
     "repository": {
