@@ -1,6 +1,6 @@
 {
     "name": "@arijitgupta/geo-bearing",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Calculate the initial bearing between geographic coordinates using decimal degrees or DMS notation.",
     "type": "module",
     "repository": {
@@ -42,6 +42,9 @@
     ],
     "author": "Arijit Gupta",
     "license": "MIT",
+    "dependencies": {
+        "@arijitgupta/geo-core": "^1.0.0"
+    },
     "devDependencies": {
         "markdownlint-cli2": "^0.23.2",
         "typescript": "^7.0.2",

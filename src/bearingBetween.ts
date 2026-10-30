@@ -1,5 +1,11 @@
+import {
+    DEGREES_PER_RADIAN,
+    RADIANS_PER_DEGREE,
+    dmsToDecimal,
+    normalizeAngle,
+    validateCoordinate,
+} from "@arijitgupta/geo-core";
 import type { Coordinate, DMSCoordinate } from "./types.js";
-import { dmsToDecimal, validateCoordinate } from "./coordinate.js";
 
 function isDMSCoordinate(
     coord: Coordinate | DMSCoordinate
@@ -54,14 +60,11 @@ export function bearingBetween(
         throw new RangeError("Bearing is undefined for identical coordinates.");
     }
 
-    const toRadians = (degrees: number): number => degrees * (Math.PI / 180);
+    const fromLatitude = a.latitude * RADIANS_PER_DEGREE;
+    const toLatitude = b.latitude * RADIANS_PER_DEGREE;
 
-    const toDegrees = (radians: number): number => radians * (180 / Math.PI);
-
-    const fromLatitude = toRadians(a.latitude);
-    const toLatitude = toRadians(b.latitude);
-
-    const longitudeDifference = toRadians(b.longitude - a.longitude);
+    const longitudeDifference =
+        (b.longitude - a.longitude) * RADIANS_PER_DEGREE;
 
     const east = Math.sin(longitudeDifference) * Math.cos(toLatitude);
 
@@ -71,7 +74,7 @@ export function bearingBetween(
             Math.cos(toLatitude) *
             Math.cos(longitudeDifference);
 
-    const angle = Math.atan2(east, north);
+    const angle = Math.atan2(east, north) * DEGREES_PER_RADIAN;
 
-    return (toDegrees(angle) + 360) % 360;
+    return normalizeAngle(angle);
 }

@@ -124,13 +124,13 @@ describe("bearingBetween", () => {
             ).toThrow(RangeError);
         });
 
-        it("throws when a decimal coordinate is not finite", () => {
+        it("throws TypeError when a decimal coordinate is not finite", () => {
             expect(() =>
                 bearingBetween(
                     { latitude: Number.NaN, longitude: 0 },
                     { latitude: 0, longitude: 0 }
                 )
-            ).toThrow(RangeError);
+            ).toThrow(TypeError);
         });
     });
 });

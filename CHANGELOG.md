@@ -7,7 +7,24 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
-## [Unreleased]
+## [2.0.0] - 2026-10-30
+
+### Breaking changes
+
+- DMS degrees and minutes must be integers; values with fractional degrees or
+  minutes that were accepted by 1.x are rejected. Fractional seconds remain valid.
+- Invalid DMS directions now throw `TypeError`.
+- Non-finite decimal coordinate values now throw `TypeError` instead of `RangeError`.
+- DMS values representing zero now convert to positive zero, including south/west zero.
+
+### Changed
+
+- Use `@arijitgupta/geo-core` v1.0.0 for shared coordinate types, conversion,
+  validation, and angle normalization.
+- `bearingBetween` validates decimal-degree inputs and throws `RangeError` for
+  out-of-range values.
+- `bearingBetween` throws `RangeError` when the two coordinates are identical
+  because the bearing is undefined.
 
 ### Added
 
@@ -16,11 +33,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - `dmsToDecimal` - converts a `DMSCoordinate` to decimal degrees.
   - `bearingBetween` now accepts `DMSCoordinate` for either or both arguments; mixed formats are supported.
 - `validateCoordinate` function for validating decimal-degree coordinates. Throws `RangeError` if latitude is outside `[-90, 90]` or longitude is outside `[-180, 180]`.
-
-### Changed
-
-- `bearingBetween` now validates decimal-degree inputs and throws `RangeError` for out-of-range or non-finite values, consistent with DMS validation.
-- `bearingBetween` throws `RangeError` when the two coordinates are identical because the bearing is undefined.
 
 ### Internal
 
@@ -40,5 +52,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - `exports` field in `package.json` for package resolution.
 - `prepublishOnly` script to type-check, test, and build before publishing.
 
-[Unreleased]: https://github.com/ArijitGupta-in/geo-bearing/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/ArijitGupta-in/geo-bearing/releases/tag/v1.0.0
+[2.0.0]: https://github.com/ArijitGupta-in/geo-bearing/releases/tag/v2.0.0

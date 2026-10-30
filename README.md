@@ -3,8 +3,10 @@
 [![npm version](https://img.shields.io/npm/v/@arijitgupta/geo-bearing)](https://www.npmjs.com/package/@arijitgupta/geo-bearing)
 [![license](https://img.shields.io/npm/l/@arijitgupta/geo-bearing)](https://opensource.org/licenses/MIT)
 
-A lightweight, dependency-free TypeScript utility for calculating the initial bearing
-between two geographic coordinates along a great-circle path.
+A lightweight TypeScript utility for calculating the initial bearing between two
+geographic coordinates along a great-circle path. Shared coordinate types,
+conversion, validation, and angular utilities are provided by
+[`@arijitgupta/geo-core`](https://www.npmjs.com/package/@arijitgupta/geo-core).
 
 Accepts coordinates in **decimal degrees** or **Degrees, Minutes, Seconds (DMS)** format.
 
@@ -88,21 +90,26 @@ Returns the initial bearing from one geographic coordinate to another in degrees
 **Returns:** `number` - initial bearing in degrees, measured clockwise from true north
 and normalized to `0 <= bearing < 360`.
 
-**Throws:** `RangeError` if the two coordinates are identical, a decimal coordinate
-is invalid, or a DMS component is out of range.
+**Throws:** `RangeError` if the two coordinates are identical, a coordinate is out
+of range, or DMS degrees/minutes are not integers.
+**Throws:** `TypeError` if a coordinate field or DMS direction has an invalid type,
+or if a decimal coordinate value is not finite.
 
 ### `dmsToDecimal(dms)`
 
 Converts a `DMSCoordinate` to a decimal-degree coordinate object.
 
-**Throws:** `RangeError` if any DMS component is out of range.
+**Throws:** `RangeError` if any DMS component is out of range or degrees/minutes
+are not integers.
+**Throws:** `TypeError` if a DMS component has an invalid type or direction.
 
 ### `validateCoordinate(coordinate)`
 
 Validates a decimal-degree coordinate.
 
-**Throws:** `RangeError` if latitude is outside `[-90, 90]`, longitude is outside
-`[-180, 180]`, or either value is not finite.
+**Throws:** `RangeError` if latitude is outside `[-90, 90]` or longitude is outside
+`[-180, 180]`.
+**Throws:** `TypeError` if the coordinate fields are invalid or either value is not finite.
 
 ### `Coordinate`
 
@@ -139,9 +146,19 @@ interface LongitudeDMS {
 **Validation rules:**
 
 - `minutes` must be in `[0, 60)`.
+- `degrees` and `minutes` must be integers.
 - `seconds` must be in `[0, 60)`.
 - `latitude.degrees` must be in `[0, 90]`; the combined value must not exceed 90 degrees.
 - `longitude.degrees` must be in `[0, 180]`; the combined value must not exceed 180 degrees.
+
+## Upgrading from 1.x
+
+Version 2.0.0 uses [`@arijitgupta/geo-core`](https://www.npmjs.com/package/@arijitgupta/geo-core)
+for coordinate types, conversion, validation, and angle normalization. When upgrading:
+
+- DMS degrees and minutes must be integers; fractional seconds remain supported.
+- Invalid DMS directions and non-finite decimal coordinate values throw `TypeError`.
+- Converting a south/west DMS coordinate whose magnitude is zero now returns positive zero.
 
 ## Behavior
 
@@ -151,7 +168,7 @@ interface LongitudeDMS {
 - Normalizes results to the range `0 <= bearing < 360`.
 - Accepts decimal-degree, DMS, and mixed coordinate formats.
 - Throws a `RangeError` when the bearing is undefined because both coordinates are identical.
-- Has no runtime dependencies.
+- Uses `@arijitgupta/geo-core` for shared geographic utilities.
 
 ## Development
 
