@@ -7,6 +7,34 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [Unreleased]
+
+## [2.0.1] - 2026-10-30
+
+### Fixed
+
+- `bearingBetween` now throws `RangeError` for coordinates that are the same point but were not compared equal:
+  longitude `-180` versus `180`, and two coordinates at the same pole with different longitudes. Previously an
+  arbitrary bearing was returned for them.
+
+### Changed
+
+- Coordinate handling uses `normalizeCoordinate` and `coordinatesEqual` from `@arijitgupta/geo-core`, so `null` and
+  other malformed coordinates throw geo-core's specific `TypeError` messages, consistent with the other packages.
+- The minimum `@arijitgupta/geo-core` version is now `1.1.0`, which provides `coordinatesEqual`.
+- `npm run check` now also type-checks the tests.
+- Source maps and declaration maps are no longer generated, because the published package does not include `src`.
+
+### Added
+
+- GitHub Actions CI on Node.js 22, 24, and 26: Markdown lint, type-check, tests with an 80% coverage threshold, and build.
+- `test:coverage` and `lint:md` scripts, `tsconfig.test.json`, and `vitest.config.ts`.
+- `publishConfig.access: "public"` in `package.json`.
+
+### Internal
+
+- The re-export tests were reduced to a smoke test; validation and conversion behavior is tested in geo-core.
+
 ## [2.0.0] - 2026-10-30
 
 ### Breaking changes

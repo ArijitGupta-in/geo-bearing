@@ -90,8 +90,10 @@ Returns the initial bearing from one geographic coordinate to another in degrees
 **Returns:** `number` - initial bearing in degrees, measured clockwise from true north
 and normalized to `0 <= bearing < 360`.
 
-**Throws:** `RangeError` if the two coordinates are identical, a coordinate is out
-of range, or DMS degrees/minutes are not integers.
+**Throws:** `RangeError` if the two coordinates are the same point, a coordinate is out
+of range, or DMS degrees/minutes are not integers. Longitude `-180` and `180` are the
+same meridian, and two coordinates at the same pole are the same point whatever their
+longitudes.
 **Throws:** `TypeError` if a coordinate field or DMS direction has an invalid type,
 or if a decimal coordinate value is not finite.
 
@@ -167,16 +169,19 @@ for coordinate types, conversion, validation, and angle normalization. When upgr
 - Measures the result clockwise from true north.
 - Normalizes results to the range `0 <= bearing < 360`.
 - Accepts decimal-degree, DMS, and mixed coordinate formats.
-- Throws a `RangeError` when the bearing is undefined because both coordinates are identical.
+- Throws a `RangeError` when the bearing is undefined because both coordinates are the same point,
+    including longitude `-180` versus `180` and two coordinates at the same pole.
 - Uses `@arijitgupta/geo-core` for shared geographic utilities.
 
 ## Development
 
 ```bash
-npm install       # install dev dependencies
-npm test          # run tests with Vitest
-npm run check     # type-check without emitting output
-npm run build     # compile TypeScript to dist/
+npm install            # install dev dependencies
+npm test               # run tests with Vitest
+npm run test:coverage  # run tests and enforce the 80% coverage threshold
+npm run check          # type-check source and tests without emitting output
+npm run lint:md        # lint Markdown files
+npm run build          # compile TypeScript to dist/
 ```
 
 ## License
